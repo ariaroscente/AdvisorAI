@@ -19,7 +19,10 @@ public class FlowchartParserService : IFlowchartParserService
         string apiKey = configuration["OPENAI_API_KEY"]!; // appsettings.json
         
         IKernelBuilder builder = Kernel.CreateBuilder();
-        builder.AddOpenAIChatCompletion(Model, apiKey);
+        builder.AddOpenAIChatCompletion(Model, apiKey, httpClient: new HttpClient
+        {
+            Timeout = TimeSpan.FromMinutes(5)
+        });
 
         _kernel = builder.Build();
         _chatService = _kernel.GetRequiredService<IChatCompletionService>();
@@ -145,7 +148,8 @@ public class FlowchartParserService : IFlowchartParserService
               "courses": [
                 {
                   "name": "",
-                  "prerequisites": []
+                  "prerequisites": [],
+                  "corequisites": []
                 }
               ]
             }
@@ -164,5 +168,27 @@ public class FlowchartParserService : IFlowchartParserService
         - Do not invent missing prerequisites.
         - Do not summarize — extract structurally.
         - Return only JSON.
+        
+        CRITICAL RULE:
+        
+        Every visible course box in the diagram must be extracted as a course,
+        even if:
+        - It has no arrows
+        - It has no prerequisites
+        - It is labeled as an elective
+        - It is a general education requirement
+        - It appears visually separate from the CS flow (1a)
+        
+        If it is a box containing a course title, it must appear in the "courses" array.
+        Do not omit standalone boxes.
+        
+        1a. Standalone boxes:
+        Any box that is visually separate and has no arrows
+        must still be extracted as a course if it represents
+        a graduation requirement.
+        Examples include:
+        - Natural Science Group 1 Elective
+        - Natural Science Group 2 Elective
+        
         """;
 }
