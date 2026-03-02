@@ -170,7 +170,6 @@ public class FlowchartParserService : IFlowchartParserService
         - Return only JSON.
         
         CRITICAL RULE:
-        
         Every visible course box in the diagram must be extracted as a course,
         even if:
         - It has no arrows
