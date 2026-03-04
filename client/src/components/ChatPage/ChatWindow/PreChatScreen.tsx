@@ -1,5 +1,7 @@
 import React from "react";
 import InputBox from "./InputBox";
+import FilePreview from "./FilePreview";
+import type { UploadedFile } from "./FileUploadPopover";
 
 interface PreChatScreenProps {
   currentWord: string;
@@ -7,6 +9,9 @@ interface PreChatScreenProps {
   setInputValue: (v: string) => void;
   onSend: () => void;
   onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
+  onAttachClick: () => void;
+  uploadedFile?: UploadedFile | null;
+  onRemoveFile?: () => void;
 }
 
 const PreChatScreen = ({
@@ -15,6 +20,9 @@ const PreChatScreen = ({
   setInputValue,
   onSend,
   onKeyDown,
+  onAttachClick,
+  uploadedFile,
+  onRemoveFile,
 }: PreChatScreenProps) => (
   <div className="flex h-full flex-col items-center justify-center gap-10 px-8">
     <div className="font-instrument flex items-baseline gap-2 select-none">
@@ -30,8 +38,15 @@ const PreChatScreen = ({
         onChange={setInputValue}
         onKeyDown={onKeyDown}
         onSend={onSend}
-        placeholder="Ask a question..."
+        placeholder="What advising questions do you have?"
+        onAttachClick={onAttachClick}
       />
+
+      {uploadedFile && onRemoveFile && (
+        <div className="mt-3 flex">
+          <FilePreview uploadedFile={uploadedFile} onRemove={onRemoveFile} />
+        </div>
+      )}
     </div>
   </div>
 );
