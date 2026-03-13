@@ -25,7 +25,7 @@ public class FlowchartController(IFlowchartParserService flowchartParserService,
             images.Add((ms.ToArray(), file.ContentType));
         }
 
-        var result = await flowchartParserService.ParseFlowchartAsync(images);
+        FlowchartCurriculum result = await flowchartParserService.ParseFlowchartAsync(images);
         await embeddingService.UpsertFlowchartAsync(result);
         return Ok(result);
     }

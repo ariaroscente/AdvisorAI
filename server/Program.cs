@@ -16,6 +16,17 @@ builder.Services.AddSingleton<PineconeClient>(sp =>
 builder.Services.AddScoped<IAuditParserService, AuditParserService>();
 builder.Services.AddScoped<IFlowchartParserService, FlowchartParserService>();
 builder.Services.AddScoped<IEmbeddingService, EmbeddingService>();
+builder.Services.AddScoped<IChatService, ChatService>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
 builder.Services.AddControllers();
 
@@ -28,6 +39,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors();
 app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();
