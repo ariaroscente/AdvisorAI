@@ -17,6 +17,7 @@ builder.Services.AddScoped<IAuditParserService, AuditParserService>();
 builder.Services.AddScoped<IFlowchartParserService, FlowchartParserService>();
 builder.Services.AddScoped<IEmbeddingService, EmbeddingService>();
 builder.Services.AddScoped<IChatService, ChatService>();
+builder.Services.AddSingleton<IChatHistoryStore, RedisChatHistoryStore>();
 
 builder.Services.AddCors(options =>
 {
