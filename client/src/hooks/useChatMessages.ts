@@ -13,11 +13,13 @@ async function fetchAIResponse(
   conversationId: string,
   message: string,
   file?: File | null,
+  fileType?: string | null,
 ): Promise<string> {
   const formData = new FormData();
   formData.append("message", message);
   formData.append("conversationId", conversationId);
   if (file) formData.append("file", file);
+  if (fileType) formData.append("fileType", fileType);
 
   const response = await fetch("http://localhost:5099/api/Chat", {
     method: "POST",
@@ -33,7 +35,7 @@ export function useChatMessages() {
   const messageIdRef = useRef(0);
   const conversationIdRef = useRef(crypto.randomUUID());
 
-  const sendAndGetResponse = async (text: string, file?: File | null) => {
+  const sendAndGetResponse = async (text: string, file?: File | null, fileType?: string | null) => {
     const thinkingId = ++messageIdRef.current;
     setMessages((prev) => [
       ...prev,
@@ -45,6 +47,7 @@ export function useChatMessages() {
         conversationIdRef.current,
         text,
         file,
+        fileType,
       );
       setMessages((prev) =>
         prev.map((msg) =>
@@ -69,7 +72,7 @@ export function useChatMessages() {
       ...prev,
       { id: ++messageIdRef.current, text, sender: "user", attachedFile },
     ]);
-    sendAndGetResponse(text, attachedFile?.file);
+    sendAndGetResponse(text, attachedFile?.file, attachedFile?.fileType);
   };
 
   const resetMessages = (
@@ -85,7 +88,7 @@ export function useChatMessages() {
       attachedFile,
     };
     setMessages([userMsg]);
-    sendAndGetResponse(firstMessage, attachedFile?.file);
+    sendAndGetResponse(firstMessage, attachedFile?.file, attachedFile?.fileType);
   };
 
   return { messages, addMessage, resetMessages };

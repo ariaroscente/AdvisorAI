@@ -1,10 +1,11 @@
-import React, { useRef, useCallback } from "react";
+import React, { useRef, useCallback, useState } from "react";
 import UploadImageIcon from "../../../assets/icons/UploadImageIcon";
 import CloseModalIcon from "../../../assets/icons/CloseModalIcon";
 
 export interface UploadedFile {
   file: File;
   previewUrl: string | null;
+  fileType: "audit" | "document" | "image";
 }
 
 interface FileUploadPopoverProps {
@@ -20,18 +21,24 @@ const FileUploadPopover = ({
   onFileSelect,
 }: FileUploadPopoverProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [selectedType, setSelectedType] = useState<"audit" | "document">("audit");
 
   const processFile = useCallback(
-    (file: File) => {
-      if (!ACCEPTED.includes(file.type)) return;
-      const previewUrl = file.type.startsWith("image/")
-        ? URL.createObjectURL(file)
-        : null;
-      onFileSelect({ file, previewUrl });
+  (file: File) => {
+    if (!ACCEPTED.includes(file.type)) return;
+
+    if (file.type.startsWith("image/")) {
+      const previewUrl = URL.createObjectURL(file);
+      onFileSelect({ file, previewUrl, fileType: "image" });
       onClose();
-    },
-    [onFileSelect, onClose],
-  );
+      return;
+    }
+
+    onFileSelect({ file, previewUrl: null, fileType: selectedType });
+    onClose();
+  },
+  [onFileSelect, onClose, selectedType],
+);
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -68,6 +75,31 @@ const FileUploadPopover = ({
         <h2 className="mb-5 text-xl font-semibold text-gray-900">
           File Upload
         </h2>
+
+        <div className="mb-5 flex gap-6">
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="radio"
+              name="fileType"
+              value="audit"
+              checked={selectedType === "audit"}
+              onChange={() => setSelectedType("audit")}
+              className="accent-app-blue"
+            />
+            <span className="text-sm text-gray-700">Degree Audit</span>
+          </label>
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="radio"
+              name="fileType"
+              value="document"
+              checked={selectedType === "document"}
+              onChange={() => setSelectedType("document")}
+              className="accent-app-blue"
+            />
+            <span className="text-sm text-gray-700">Other Document</span>
+          </label>
+        </div>
 
         <div
           className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 py-14 transition-colors hover:bg-gray-100"
