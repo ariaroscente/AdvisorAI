@@ -1,3 +1,4 @@
+using Microsoft.SemanticKernel;
 using Pinecone;
 using server.Services;
 
@@ -6,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddOpenAIEmbeddingGenerator(
+builder.Services.AddOpenAITextEmbeddingGeneration(
     modelId: "text-embedding-3-small",
     builder.Configuration["OPENAI_API_KEY"]!);
 

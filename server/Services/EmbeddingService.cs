@@ -1,12 +1,12 @@
-using Microsoft.Extensions.AI;
 using Pinecone;
 using server.Models;
 using System.Text.Json;
+using Microsoft.SemanticKernel.Embeddings;
 
 namespace server.Services;
 
 public class EmbeddingService(
-    IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator,
+    ITextEmbeddingGenerationService embeddingGenerator,
     PineconeClient pinecone) : IEmbeddingService
 {
     private const string IndexName = "advisor-ai";
@@ -22,8 +22,8 @@ public class EmbeddingService(
                                $"Prerequisites: {JsonSerializer.Serialize(course.Prerequisites)}\n" +
                                $"Notes: {course.Notes}";
 
-            var result = await embeddingGenerator.GenerateAsync([chunkText]);
-            var vector = result.First().Vector.ToArray();
+            IList<ReadOnlyMemory<float>> embeddings = await embeddingGenerator.GenerateEmbeddingsAsync([chunkText]);
+            float[] vector = embeddings[0].ToArray();
             await index.UpsertAsync(new UpsertRequest
             {
                 Vectors =
@@ -44,5 +44,24 @@ public class EmbeddingService(
                 ]
             });
         }
+    }
+    
+    public async Task<IEnumerable<string>> QueryAsync(string question, int topK = 5)
+    {
+        var index = pinecone.Index(IndexName);
+
+        IList<ReadOnlyMemory<float>> embeddings = await embeddingGenerator.GenerateEmbeddingsAsync([question]);
+        float[] questionVector = embeddings[0].ToArray();
+
+        QueryResponse response = await index.QueryAsync(new QueryRequest
+        {
+            Vector = questionVector,
+            TopK = (uint)topK,
+            IncludeMetadata = true
+        });
+
+        return response.Matches
+            .Where(m => m.Metadata != null && m.Metadata.ContainsKey("text"))
+            .Select(m => m.Metadata!["text"].ToString()!);
     }
 }

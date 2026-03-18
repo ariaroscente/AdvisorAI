@@ -11,6 +11,7 @@ public class ChatController(IChatService chatService) : ControllerBase
     public async Task<ActionResult<string>> Chat(
         [FromForm] string message,
         [FromForm] string conversationId,
+        [FromForm] string? fileType = null,
         IFormFile? file = null)
     {
         if (string.IsNullOrWhiteSpace(message))
