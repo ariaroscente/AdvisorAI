@@ -155,7 +155,7 @@ const HeroSection = () => {
           <img
             src={graduationCap}
             alt="Graduation Cap"
-            className="relative h-32 md:h-44 lg:h-56 animate-pulse-glow"
+            className="relative h-24 md:h-44 lg:h-56 animate-pulse-glow"
             style={{
               transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
               transition: "transform 0.15s ease-out",
@@ -164,18 +164,18 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Robot hand — left side (hidden on small screens) */}
+      {/* Robot hand — left side */}
       <img
         src={robotHand}
         alt="Robot hand"
-        className="absolute left-[-3%] top-[30%] hidden md:block md:h-[35vw] lg:h-[30vw] max-h-[560px] object-contain"
+        className="pointer-events-none absolute left-[-3%] bottom-[28%] md:bottom-auto md:top-[38%] lg:top-[30%] h-[28vw] md:h-[35vw] lg:h-[30vw] max-h-[560px] object-contain"
       />
 
-      {/* Human hand — right side, bottom corner (hidden on small screens) */}
+      {/* Human hand — right side, bottom corner */}
       <img
         src={humanHand}
         alt="Human hand"
-        className="absolute right-[-3%] bottom-0 hidden md:block md:h-[28vw] lg:h-[25vw] max-h-[400px] object-contain"
+        className="pointer-events-none absolute right-[-3%] bottom-[18%] md:bottom-0 h-[22vw] md:h-[28vw] lg:h-[25vw] max-h-[400px] object-contain"
       />
     </section>
   );
