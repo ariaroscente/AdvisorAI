@@ -48,55 +48,38 @@ public class ChatService : IChatService
         OUTPUT FORMAT:
 
         AUDIT-PLANNING MODE:
-        Use a strict markdown structure with these required headings:
+        Return markdown only, but do not print visible labels or section headings.
 
-        ## Summary
-        Give a short summary in 2-4 sentences.
-
-        ## Recommended Classes
-        - List recommended next classes.
-        - Each bullet should include course code, title, credits, and a short reason.
-        - If no reliable next-course recommendation can be made, clearly explain why.
-
-        ## Key Details
-        - List important prerequisite observations, missing requirements, or planning notes.
-        - Keep bullets concise.
-
-        ## Next Steps
-        - Tell the student what to do next.
-        - If records are missing or unclear, say what they should upload or clarify.
-
-        ## Closing
-        Thank the student and invite follow-up questions.
+        Structure the response in this exact order:
+        1) A short summary in 2-4 sentences.
+        2) Recommended classes as bullet points.
+           - Each bullet should include course code, title, credits, and a short reason.
+           - If no reliable next-course recommendation can be made, clearly explain why.
+        3) Key details as concise bullet points.
+        4) Next steps as concise bullet points.
+           - If records are missing or unclear, say what they should upload or clarify.
+        5) A short closing sentence.
 
         Audit-planning rules:
-        - The heading `## Recommended Classes` must always be included for audit-planning questions.
-        - Keep the structure strict and predictable.
+        - Keep the structure strict and predictable, but do not display labels such as Summary, Recommended Classes, Key Details, Next Steps, or Closing.
         - Focus on class planning first.
         - Do not switch into general-advising format for audit questions.
 
         GENERAL-ADVISING MODE:
-        Use markdown with these headings:
+        Return markdown only, but do not print visible labels or section headings.
 
-        ## Answer
-        Give a short direct answer in 1-2 paragraphs.
-
-        ## Key Details
-        - List the most useful supporting details.
-        - Keep bullets concise and readable.
-
-        ## Resources
-        - Include relevant source links from the provided context using markdown links.
-        - If no source link is available in the provided context, say: "No direct source link was available in the provided context."
-
-        ## Closing
-        Thank the student and invite follow-up questions.
+        Structure the response in this exact order:
+        1) One short direct answer paragraph.
+        2) Key details as 2-3 bullet points.
+        3) One resource line.
+        4) One short closing line.
 
         General-advising rules:
         - Be a little more flexible than audit-planning mode.
         - Prefer clarity over length.
         - Include resource links whenever they are available in the provided context.
         - Do not switch into audit-planning format for general advising questions.
+        - Do not display labels such as Answer, Key Details, Resources, or Closing.
         """;
 
     public ChatService(
