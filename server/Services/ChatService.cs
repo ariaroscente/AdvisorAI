@@ -66,8 +66,11 @@ public class ChatService : IChatService
           `**Remaining requirements:**`
           `**Next steps:**`
         - Current in-progress courses should include only courses that are currently in progress.
+        - Treat currently in-progress courses as already being counted toward degree completion for planning purposes.
+        - Do not recommend in-progress courses again as future courses.
         - Recommended next courses should include only courses that are not satisfied and not currently in progress.
         - The first bullet under recommended next courses should summarize how many credits remain overall and how many credits still need to be planned after accounting for currently in-progress courses.
+        - When the PDF context provides enough information, subtract the credits for currently in-progress courses from the remaining credits still to be planned and include that result in the same bullet.
         - After that first credit-summary bullet, include the course-specific recommendation bullets.
         - Format bullet points as `**Lead Detail:** supporting explanation` when possible.
         - Remaining requirement notes should mention only requirements that are explicitly not satisfied, while noting any in-progress components only as actively being addressed.
