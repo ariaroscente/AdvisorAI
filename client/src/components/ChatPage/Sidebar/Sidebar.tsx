@@ -5,18 +5,6 @@ import fiu_logo from "../../../assets/fiu_logo_hrz.png";
 import SidebarSection from "./SidebarSection";
 import NewChatButton from "./NewChatButton";
 
-<<<<<<< HEAD
-interface SidebarProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onNewChat: () => void;
-}
-
-const Sidebar = ({ isOpen, onClose, onNewChat }: SidebarProps) => {
-=======
-<<<<<<< HEAD
-const Sidebar = () => {
->>>>>>> ff84053 (New Chat button functionality)
   return (
     <>
       {/* Mobile backdrop */}
@@ -38,7 +26,6 @@ const Sidebar = () => {
           <img src={brain} alt="AdvisorAI Brain Icon" className="h-10" />
           <h1 className="font-instrument text-4xl text-white">AdvisorAI</h1>
         </span>
-=======
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
@@ -62,25 +49,19 @@ const Sidebar = ({ isOpen, onClose, onNewChat }: SidebarProps) => {
           ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
         style={{ backgroundImage: `url(${sidebar_bg})` }}
       >
-<<<<<<< HEAD
+
         <div className="flex w-full flex-col items-center gap-8 hover:cursor-default">
           <span className="flex w-full items-center justify-center gap-3">
             <img src={brain} alt="AdvisorAI Brain Icon" className="h-10" />
             <h1 className="font-instrument text-4xl text-white">AdvisorAI</h1>
           </span>
->>>>>>> a59bb79 (New Chat button functionality)
-=======
+
       <div className="flex w-full flex-col items-center gap-8 hover:cursor-default">
         <span className="flex w-full items-center justify-center gap-3">
           <img src={brain} alt="AdvisorAI Brain Icon" className="h-10" />
           <h1 className="font-instrument text-4xl text-white">AdvisorAI</h1>
         </span>
->>>>>>> 6c31801 (linter whitespace fix)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <NewChatButton onClick={onNewChat} />
-=======
           <SidebarSection
             title="Helpful Resources"
             links={[
@@ -106,7 +87,6 @@ const Sidebar = ({ isOpen, onClose, onNewChat }: SidebarProps) => {
               },
             ]}
           />
-=======
         <SidebarSection
           title="Helpful Resources"
           links={[
@@ -132,7 +112,6 @@ const Sidebar = ({ isOpen, onClose, onNewChat }: SidebarProps) => {
             },
           ]}
         />
->>>>>>> 7d88364 (linter whitespace fix)
 
         <SidebarSection
           title="Help us Improve!"
@@ -142,34 +121,17 @@ const Sidebar = ({ isOpen, onClose, onNewChat }: SidebarProps) => {
             { link: "https://google.com", text: "Leave a Review" },
           ]}
         />
-
-<<<<<<< HEAD
           <NewChatButton onClick={onNewChat} />
         </div>
-
         <img src={fiu_logo} alt="FIU Logo" className="h-24" />
->>>>>>> ff84053 (New Chat button functionality)
-=======
         <NewChatButton onClick={onNewChat} />
->>>>>>> 7d88364 (linter whitespace fix)
+        <NewChatButton onClick={onNewChat} />
       </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
 
       <img src={fiu_logo} alt="FIU Logo" className="h-24" />
     </div>
-<<<<<<< HEAD
     </>
-=======
-=======
-=======
-
-      <img src={fiu_logo} alt="FIU Logo" className="h-24" />
-    </div>
->>>>>>> 6c31801 (linter whitespace fix)
     </>
->>>>>>> a59bb79 (New Chat button functionality)
->>>>>>> ff84053 (New Chat button functionality)
   );
 };
 

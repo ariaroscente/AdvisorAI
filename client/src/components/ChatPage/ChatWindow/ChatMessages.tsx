@@ -46,17 +46,10 @@ const ChatMessages = ({ messages, messagesEndRef }: ChatMessagesProps) => (
               <ThinkingIndicator />
             </div>
           ) : (
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <div className="animate-slide-up max-w-xl text-sm leading-relaxed text-gray-800">
-=======
             <div className="animate-slide-up max-w-xl text-sm leading-relaxed text-gray-800 dark:text-gray-200">
->>>>>>> f952f25 (Add dark mode support and degree audit guide to chat page)
               <ReactMarkdown components={markdownComponents}>{msg.text}</ReactMarkdown>
-=======
             <div className="animate-slide-up max-w-[90%] md:max-w-xl text-sm leading-relaxed text-gray-800">
               {msg.text}
->>>>>>> 9c191f2 (Make chat page responsive for mobile screens)
             </div>
           )}
           {msg.attachedFile && (
