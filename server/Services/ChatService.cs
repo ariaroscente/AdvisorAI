@@ -152,8 +152,7 @@ public class ChatService : IChatService
     {
         ChatHistory history = await _historyStore.GetHistoryAsync(conversationId);
 
-        if (!history.Any())
-            history.AddSystemMessage(SystemPrompt);
+        history.Insert(0, new ChatMessageContent(AuthorRole.System, SystemPrompt));
 
         IEnumerable<string> relevantChunks = await _embeddingService.QueryAsync(userMessage);
 
