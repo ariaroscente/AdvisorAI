@@ -74,7 +74,7 @@ public class ChatService : IChatService
 
         Structure the response in this exact order:
         1) A short summary paragraph.
-        2) A bolded lead-in for current in-progress courses, followed by plain bullet points with course names only.
+        2) A bolded lead-in for current in-progress courses, followed by plain bullet points with course names only, seperated by the semester they are being taken in if they are in progress as headings.
         3) A bolded lead-in for recommended next courses, followed by bullet points.
         4) A bolded lead-in for remaining requirement notes, followed by bullet points.
         5) A bolded lead-in for next steps, followed by bullet points.
